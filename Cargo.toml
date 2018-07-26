@@ -3,6 +3,9 @@ name = "libosu-py"
 version = "0.0.1"
 authors = ["Michael <localhost>"]
 
+[lib]
+crate-type = ["cdylib"]
+
 [dependencies]
 libosu = { version = "*", path = "../libosu" }
 pyo3 = "0.3.2"
