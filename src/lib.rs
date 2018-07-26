@@ -3,7 +3,6 @@
 extern crate libosu;
 extern crate pyo3;
 
-use std::path::PathBuf;
 
 use libosu::OszDeserializer;
 use pyo3::prelude::*;
@@ -11,6 +10,7 @@ use pyo3::prelude::*;
 #[pyclass]
 pub struct Beatmap {
     inner: libosu::Beatmap,
+    token: PyToken,
 }
 
 #[pymethods]
@@ -27,7 +27,12 @@ impl Beatmap {
                 )))
             }
         }
-        obj.init(|t| Beatmap { inner: beatmap })
+        obj.init(|t| Beatmap { inner: beatmap, token: t })
+    }
+
+    #[getter(audio_filename)]
+    fn audio_filename(&self) -> PyResult<String> {
+        Ok(self.inner.audio_filename.clone())
     }
 }
 
